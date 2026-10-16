@@ -1,236 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ApnaGhar - Real Estate Portal</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background-color: #f4f6f9; color: #333; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicious Bites - Fresh & Tasty Food</title>
+    <!-- Google Fonts & FontAwesome for icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    /* Navbar */
-    header { background: #0056b3; color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-    .logo { font-size: 22px; font-weight: bold; letter-spacing: 0.5px; }
-    .logo span { color: #ffc107; }
-    .post-btn { background: #ffc107; color: #111; border: none; padding: 8px 14px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; }
-    .post-btn span { background: #28a745; color: #fff; font-size: 10px; padding: 2px 5px; border-radius: 4px; margin-left: 4px; }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
 
-    /* Hero & Search */
-    .hero { background: linear-gradient(rgba(0,40,90,0.75), rgba(0,40,90,0.75)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80') center/cover; color: #fff; padding: 40px 20px; text-align: center; }
-    .hero h1 { font-size: 26px; margin-bottom: 10px; }
-    .hero p { font-size: 15px; margin-bottom: 20px; opacity: 0.9; }
-    .search-box { background: #fff; padding: 15px; border-radius: 8px; max-width: 800px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-    .search-box select, .search-box input { flex: 1; min-width: 140px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; }
-    .search-btn { background: #0056b3; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; flex: 1; min-width: 120px; }
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+        }
 
-    /* Listings Container */
-    .container { max-width: 1100px; margin: 25px auto; padding: 0 15px; }
-    .section-title { font-size: 20px; margin-bottom: 15px; border-left: 4px solid #0056b3; padding-left: 10px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 20px; }
+        /* Header & Navigation */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+        }
 
-    /* Property Card */
-    .card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s; position: relative; }
-    .badge { position: absolute; top: 10px; left: 10px; background: #0056b3; color: #fff; padding: 4px 10px; font-size: 12px; border-radius: 4px; font-weight: bold; }
-    .card img { width: 100%; height: 180px; object-fit: cover; }
-    .card-body { padding: 15px; }
-    .price { font-size: 20px; font-weight: bold; color: #0056b3; margin-bottom: 5px; }
-    .title { font-size: 16px; font-weight: 600; margin-bottom: 5px; }
-    .location { font-size: 13px; color: #666; margin-bottom: 10px; }
-    .details { display: flex; justify-content: space-between; background: #f8f9fa; padding: 8px 10px; border-radius: 5px; font-size: 13px; margin-bottom: 12px; color: #444; }
-    .contact-btn { width: 100%; background: #28a745; color: #fff; border: none; padding: 10px; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 14px; }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #e67e22;
+        }
 
-    /* Modal */
-    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; align-items: center; justify-content: center; padding: 15px; }
-    .modal-content { background: #fff; padding: 20px; border-radius: 8px; width: 100%; max-width: 450px; position: relative; max-height: 90vh; overflow-y: auto; }
-    .close-btn { position: absolute; right: 15px; top: 12px; font-size: 22px; cursor: pointer; color: #666; }
-    .form-group { margin-bottom: 12px; }
-    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
-    .form-group input, .form-group select { width: 100%; padding: 9px; border: 1px solid #ccc; border-radius: 5px; }
-    .submit-btn { width: 100%; background: #0056b3; color: #fff; border: none; padding: 11px; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 5px; }
+        .logo span {
+            color: #333;
+        }
 
-    footer { text-align: center; padding: 20px; background: #222; color: #aaa; font-size: 13px; margin-top: 40px; }
-  </style>
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #e67e22;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 90vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            margin-top: 70px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .btn {
+            background: #e67e22;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #d35400;
+        }
+
+        /* Menu Section */
+        .menu {
+            padding: 80px 10%;
+            text-align: center;
+        }
+
+        .menu h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .menu p.subtitle {
+            color: #777;
+            margin-bottom: 50px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .menu-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .menu-content {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .menu-content h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .menu-content p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .price-order {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #e67e22;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #222;
+            color: white;
+            padding: 60px 10%;
+            text-align: center;
+        }
+
+        .contact h2 {
+            margin-bottom: 20px;
+        }
+
+        .contact p {
+            margin-bottom: 10px;
+            color: #aaa;
+        }
+
+        footer {
+            background: #111;
+            color: #777;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none; /* Simple mobile adjustment */
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <div class="logo">Apna<span>Ghar</span></div>
-    <button class="post-btn" onclick="openModal('postModal')">+ Post Property <span>FREE</span></button>
-  </header>
+    <!-- Header -->
+    <header>
+        <div class="logo">Delicious<span>Bites</span></div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <section class="hero">
-    <h1>Apne Sapno Ka Ghar Dhundhein</h1>
-    <p>Buy, Rent & Sell Properties Across Delhi NCR & India</p>
-    <div class="search-box">
-      <select id="filterPurpose">
-        <option value="All">Buy / Rent (All)</option>
-        <option value="Buy">Buy</option>
-        <option value="Rent">Rent</option>
-      </select>
-      <select id="filterType">
-        <option value="All">All Property Types</option>
-        <option value="Flat">Flat / Apartment</option>
-        <option value="House">Independent House</option>
-        <option value="Plot">Plot / Land</option>
-      </select>
-      <input type="text" id="searchInput" placeholder="Search city or locality (e.g. Delhi, Noida)...">
-      <button class="search-btn" onclick="filterProperties()">Search</button>
-    </div>
-  </section>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Fresh & Delicious Food Delivered To You</h1>
+        <p>Experience the best taste in town made with fresh ingredients and authentic recipes.</p>
+        <a href="#menu" class="btn">Explore Menu</a>
+    </section>
 
-  <div class="container">
-    <h2 class="section-title">Latest Properties</h2>
-    <div class="grid" id="propertyGrid"></div>
-  </div>
-
-  <!-- Post Property Modal -->
-  <div class="modal" id="postModal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeModal('postModal')">&times;</span>
-      <h3 style="margin-bottom: 15px;">Post Your Property (Free)</h3>
-      <form onsubmit="addProperty(event)">
-        <div class="form-group">
-          <label>Looking To</label>
-          <select id="pPurpose" required>
-            <option value="Buy">Sell (For Buy)</option>
-            <option value="Rent">Rent Out</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Property Type</label>
-          <select id="pType" required>
-            <option value="Flat">Flat / Apartment</option>
-            <option value="House">Independent House</option>
-            <option value="Plot">Plot / Land</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Property Title (e.g. 2 BHK Builder Floor)</label>
-          <input type="text" id="pTitle" required placeholder="Enter title">
-        </div>
-        <div class="form-group">
-          <label>Price (e.g. ₹35 Lakh or ₹12,000/mo)</label>
-          <input type="text" id="pPrice" required placeholder="Enter price">
-        </div>
-        <div class="form-group">
-          <label>Location / Locality</label>
-          <input type="text" id="pLocation" required placeholder="e.g. Badarpur, New Delhi">
-        </div>
-        <div class="form-group">
-          <label>Area Size (sq.ft / gaj)</label>
-          <input type="text" id="pArea" required placeholder="e.g. 900 sq.ft">
-        </div>
-        <div class="form-group">
-          <label>Owner Contact Number</label>
-          <input type="tel" id="pPhone" required placeholder="10-digit mobile number">
-        </div>
-        <button type="submit" class="submit-btn">Submit Property</button>
-      </form>
-    </div>
-  </div>
-
-  <footer>
-    &copy; 2026 ApnaGhar Real Estate Portal. All Rights Reserved.
-  </footer>
-
-  <script>
-    const properties = [
-      {
-        purpose: "Buy",
-        type: "Flat",
-        title: "3 BHK Ready to Move Flat",
-        price: "₹45 Lakh",
-        location: "South Delhi, New Delhi",
-        area: "1150 sq.ft",
-        phone: "9876543210",
-        img: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        purpose: "Rent",
-        type: "Flat",
-        title: "2 BHK Furnished Apartment",
-        price: "₹15,000 / month",
-        location: "Sector 62, Noida",
-        area: "950 sq.ft",
-        phone: "9876543211",
-        img: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80"
-      },
-      {
-        purpose: "Buy",
-        type: "House",
-        title: "Independent 2-Storey House",
-        price: "₹62 Lakh",
-        location: "Faridabad, Delhi NCR",
-        area: "100 Gaj",
-        phone: "9876543212",
-        img: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=600&q=80"
-      }
-    ];
-
-    function renderProperties(list) {
-      const grid = document.getElementById('propertyGrid');
-      grid.innerHTML = '';
-      if (list.length === 0) {
-        grid.innerHTML = '<p>No properties found matching your search.</p>';
-        return;
-      }
-      list.forEach(item => {
-        grid.innerHTML += `
-          <div class="card">
-            <span class="badge">For ${item.purpose}</span>
-            <img src="${item.img}" alt="${item.title}">
-            <div class="card-body">
-              <div class="price">${item.price}</div>
-              <div class="title">${item.title}</div>
-              <div class="location">📍 ${item.location}</div>
-              <div class="details">
-                <span>🏠 ${item.type}</span>
-                <span>📐 ${item.area}</span>
-              </div>
-              <button class="contact-btn" onclick="alert('Owner Contact Number: +91-${item.phone}')">📞 Contact Owner</button>
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <h2>Our Popular Menu</h2>
+        <p class="subtitle">Choose from our wide range of delicious items</p>
+        
+        <div class="menu-grid">
+            <!-- Item 1 -->
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80" alt="Burger">
+                <div class="menu-content">
+                    <h3>Cheesy Burger</h3>
+                    <p>Juicy beef/chicken patty loaded with melted cheese and fresh lettuce.</p>
+                    <div class="price-order">
+                        <span class="price">₹199</span>
+                        <a href="#contact" class="btn" style="padding: 8px 15px; font-size: 14px;">Order</a>
+                    </div>
+                </div>
             </div>
-          </div>
-        `;
-      });
-    }
 
-    function filterProperties() {
-      const purpose = document.getElementById('filterPurpose').value;
-      const type = document.getElementById('filterType').value;
-      const search = document.getElementById('searchInput').value.toLowerCase();
+            <!-- Item 2 -->
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=80" alt="Pizza">
+                <div class="menu-content">
+                    <h3>Italian Pizza</h3>
+                    <p>Classic thin-crust pizza topped with fresh mozzarella and basil.</p>
+                    <div class="price-order">
+                        <span class="price">₹349</span>
+                        <a href="#contact" class="btn" style="padding: 8px 15px; font-size: 14px;">Order</a>
+                    </div>
+                </div>
+            </div>
 
-      const filtered = properties.filter(p => {
-        const matchPurpose = purpose === 'All' || p.purpose === purpose;
-        const matchType = type === 'All' || p.type === type;
-        const matchSearch = p.location.toLowerCase().includes(search) || p.title.toLowerCase().includes(search);
-        return matchPurpose && matchType && matchSearch;
-      });
-      renderProperties(filtered);
-    }
+            <!-- Item 3 -->
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=500&q=80" alt="Pasta">
+                <div class="menu-content">
+                    <h3>Creamy White Pasta</h3>
+                    <p>Penne pasta tossed in a rich, creamy garlic and cheese sauce.</p>
+                    <div class="price-order">
+                        <span class="price">₹279</span>
+                        <a href="#contact" class="btn" style="padding: 8px 15px; font-size: 14px;">Order</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    <!-- Contact Section -->
+    <section class="live-contact" id="contact" style="padding: 50px 10%; background: #f1f1f1; text-align: center;">
+        <h2>Order Now / Contact Us</h2>
+        <p style="margin-bottom: 20px; color: #666;">Call us directly or visit our outlet to place your order!</p>
+        <p><strong>Phone:</strong> +91 98765 43210</p>
+        <p><strong>Address:</strong> Main Market, New Delhi</p>
+    </section>
 
-    function addProperty(e) {
-      e.preventDefault();
-      const newProp = {
-        purpose: document.getElementById('pPurpose').value,
-        type: document.getElementById('pType').value,
-        title: document.getElementById('pTitle').value,
-        price: document.getElementById('pPrice').value,
-        location: document.getElementById('pLocation').value,
-        area: document.getElementById('pArea').value,
-        phone: document.getElementById('pPhone').value,
-        img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80"
-      };
-      properties.unshift(newProp);
-      renderProperties(properties);
-      closeModal('postModal');
-      e.target.reset();
-      alert('Aapki property successfully list ho gayi hai!');
-    }
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Delicious Bites. All rights reserved. Built with GitHub Pages.</p>
+    </footer>
 
-    renderProperties(properties);
-  </script>
 </body>
 </html>
+
