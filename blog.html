@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>मेरी फूड डायरी - बिरयानी ब्लॉग</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #ff9800;
+        }
+        header p {
+            font-size: 1.2rem;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .blog-post {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        .blog-post h2 {
+            color: #d32f2f;
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+        .date {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .blog-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .content p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        /* नया ब्लॉग जोड़ने के लिए सेक्शन */
+        .add-blog-box {
+            background: #fff3e0;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px dashed #ff9800;
+            margin-top: 40px;
+        }
+        .add-blog-box h3 {
+            margin-bottom: 15px;
+            color: #e65100;
+        }
+        .add-blog-box input, .add-blog-box textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .add-blog-box textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        .add-blog-box button {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .add-blog-box button:hover {
+            background-color: #f57c00;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #333;
+            color: white;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>जायका-ए-हिन्द</h1>
+        <p>स्वाद और खुशबू की अनकही कहानियाँ</p>
+    </header>
+
+    <div class="container" id="blogs-container">
+        <!-- पहला ब्लॉग पोस्ट (बिरयानी पर) -->
+        <article class="blog-post">
+            <h2>शाही बिरयानी: खुशबू और स्वाद का बेजोड़ संगम</h2>
+            <span class="date">प्रकाशित तिथि: 18 अक्टूबर, 2026</span>
+            <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80" alt="स्वादिष्ट बिरयानी" class="blog-image">
+            <div class="content">
+                <p>जब भी लज़ीज़ खाने की बात आती है, तो सबसे पहला नाम ज़ुबान पर बिरयानी का ही आता है। यह सिर्फ एक खाना नहीं, बल्कि मुग़लई संस्कृति और मसालों का एक अनूठा जादू है। लंबे बासमती चावल के दाने, केसर की भीनी-भीनी खुशबू और धीमी आंच पर पक्का हुआ गोश्त या सब्जियां—इसकी महक मात्र से ही मुंह में पानी आ जाता है।</p>
+                <p>लखनऊ की दम बिरयानी हो या हैदराबाद की तीखी मसालेदार बिरयानी, हर एक का अपना अलग अंदाज़ और इतिहास है। दम पुख्त शैली में हांडी को आटे से सील करके पकाया जाता है, जिससे सारे मसालों की खुशबू चावल के हर एक दाने में समा जाती है।</p>
+            </div>
+        </article>
+    </div>
+
+    <!-- नया ब्लॉग जोड़ने का फॉर्म -->
+    <div class="container">
+        <div class="add-blog-box">
+            <h3>✍️ एक नया ब्लॉग पोस्ट जोड़ें</h3>
+            <input type="text" id="blogTitle" placeholder="ब्लॉग का शीर्षक (Title) लिखें...">
+            <input type="text" id="blogImage" placeholder="इमेज का लिंक (Image URL) यहाँ डालें...">
+            <textarea id="blogContent" placeholder="अपने ब्लॉग की पूरी जानकारी यहाँ लिखें..."></textarea>
+            <button onclick="addNewBlog()">ब्लॉग पब्लिश करें</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 जायका-ए-हिन्द ब्लॉग. सर्वाधिकार सुरक्षित।</p>
+    </footer>
+
+    <script>
+        function addNewBlog() {
+            const title = document.getElementById('blogTitle').value;
+            const imageUrl = document.getElementById('blogImage').value;
+            const content = document.getElementById('blogContent').value;
+
+            if(!title || !content) {
+                alert('कृपया शीर्षक और सामग्री (Content) जरूर भरें!');
+                return;
+            }
+
+            // अगर यूजर ने इमेज लिंक नहीं दिया, तो डिफ़ॉल्ट इमेज ले लें
+            const finalImage = imageUrl ? imageUrl : 'https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=800&q=80';
+            const currentDate = new Date().toLocaleDateString('hi-IN', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            const container = document.getElementById('blogs-container');
+
+            // नया आर्टिकल HTML बनाना
+            const newPost = document.createElement('article');
+            newPost.classList.add('blog-post');
+            newPost.innerHTML = `
+                <h2>${title}</h2>
+                <span class="date">प्रकाशित तिथि: ${currentDate}</span>
+                <img src="${finalImage}" alt="${title}" class="blog-image">
+                <div class="content">
+                    <p>${content.replace(/\n/g, '<br>')}</p>
+                </div>
+            `;
+
+            // सबसे ऊपर नया ब्लॉग जोड़ने के लिए
+            container.prepend(newPost);
+
+            // फॉर्म साफ़ करना
+            document.getElementById('blogTitle').value = '';
+            document.getElementById('blogImage').value = '';
+            document.getElementById('blogContent').value = '';
+
+            alert('आपका नया ब्लॉग सफलतापूर्वक जोड़ दिया गया है!');
+        }
+    </script>
+
+</body>
+</html>
